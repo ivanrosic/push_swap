@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/29 14:01:59 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/03/29 18:10:22 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,23 @@ int main(int ac, char **av)
 	if(!(s = malloc(sizeof(t_stack))))
 		return(0);
 	ft_init_struct(ac, av, s);
-	s->b[0] = 8;
-	s->b[1] = 6;
-	s->size_b = 2;
+	ft_affiche_stack(s);
+	ft_sa(s);
+	ft_affiche_stack(s);
+	ft_pb(s);
+	ft_pb(s);
+	ft_pb(s);
+	ft_affiche_stack(s);
+	ft_ra(s);
+	ft_rb(s);
 	ft_affiche_stack(s);
 	ft_rra(s);
+	ft_rrb(s);
+	ft_affiche_stack(s);
+	ft_sa(s);
+	ft_affiche_stack(s);
+	ft_pa(s);
+	ft_pa(s);
+	ft_pa(s);
 	ft_affiche_stack(s);
 }
