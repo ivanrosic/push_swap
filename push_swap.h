@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:54:25 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/29 13:36:23 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/03/30 10:01:42 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ typedef struct s_stack
 	int size_a;
 	int *b;
 	int size_b;
+	int med;
 }				t_stack;
 
 	void	ft_rrr(t_stack *s);
@@ -39,5 +40,8 @@ typedef struct s_stack
 	void	ft_sa(t_stack *s);
 	void	ft_swap(int *a, int *b);
 	void	ft_affiche_stack(t_stack *s);
+	void	ft_get_median(t_stack *s);
+	void	ft_first_split(t_stack *s);
+
 
 #endif
