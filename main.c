@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/30 18:21:05 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 11:11:19 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,7 @@ void	ft_sort(t_stack *s)
 		{
 			ft_sb(s);
 		}
+		//ft_affiche_stack(s);
 	}
 }
 
@@ -204,13 +205,24 @@ int main(int ac, char **av)
 	t_stack *s;
 	int v;
 
+
+
 	if(!(s = malloc(sizeof(t_stack))))
 		return(0);
-	ft_init_struct(ac, av, s);
+	if(av[1][0] && av[1][0] == 'A')
+	{
+		if(av[1][1] && av[1][1] == 'R')
+		{
+			if(av[1][2] && av[1][2] == 'G')
+		;
+		else
+			ft_init_struct(ac, av, s);
+		}
+	}
 //		ft_affiche_stack(s);
 	if (s->size_a <= 6)
 	{
-		if(s->size_a > 3)
+		if(s->size_a >= 3)
 		{
 			ft_get_median(s);
 			ft_first_split(s);
@@ -219,5 +231,4 @@ int main(int ac, char **av)
 		while(s->size_b > 0)
 			ft_pa(s);
 	}
-//		ft_affiche_stack(s);
 }
