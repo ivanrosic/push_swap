@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/12 11:11:19 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/12 12:17:59 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,9 +151,9 @@ void	ft_sort(t_stack *s)
 		b = ft_verif_b(s);
 		a = ft_verif_a(s);
 		if(b == 0)
-		;
+			;
 		if(ft_verif_a(s) == 0)
-		;
+			;
 		else if(ft_verif_a(s) == 1)
 		{
 			if(b == 2 || b == 4)
@@ -200,27 +200,53 @@ void	ft_sort(t_stack *s)
 	}
 }
 
+int		ft_count_nb(char *str)
+{
+	int i;
+	int cpt;
+
+	i = 0;
+	cpt = 0;
+	while(str[i])
+	{
+		if(str[i] >= '0' && str[i] <= '9')
+		{
+		while(str[i] >= '0' && str[i] <= '9')
+			i++;
+			cpt++;
+		}
+	i++;
+	}
+	return(cpt);
+}
+
+void	ft_arg_to_av(char **av, t_stack *s)
+{
+
+	s->size_a = ft_count_nb(av[1]);
+	s->size_b = 0;
+	s->a = malloc(sizeof(int) * (s->size_a));
+	s->b = malloc(sizeof(int) * (s->size_a));
+
+
+}
+
 int main(int ac, char **av)
 {
 	t_stack *s;
 	int v;
 
-
-
 	if(!(s = malloc(sizeof(t_stack))))
 		return(0);
-	if(av[1][0] && av[1][0] == 'A')
+	if(ac == 2)
 	{
-		if(av[1][1] && av[1][1] == 'R')
-		{
-			if(av[1][2] && av[1][2] == 'G')
-		;
-		else
-			ft_init_struct(ac, av, s);
-		}
+		printf("test\n");
+		ft_arg_to_av(av, s);
 	}
-//		ft_affiche_stack(s);
-	if (s->size_a <= 6)
+	else
+		ft_init_struct(ac, av, s);
+	//		ft_affiche_stack(s);
+/*	if (s->size_a <= 6)
 	{
 		if(s->size_a >= 3)
 		{
@@ -230,5 +256,5 @@ int main(int ac, char **av)
 		ft_sort(s);
 		while(s->size_b > 0)
 			ft_pa(s);
-	}
+	}*/
 }
