@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 08:49:38 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/12 08:35:53 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 08:09:57 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,8 @@ void	ft_get_median(t_stack *s)
 		else
 			i++;
 	}
+	if(i % 2 == 1)
 	s->med = tmp[i / 2];
+	else
+	s->med = tmp[(i / 2) - 1];
 }

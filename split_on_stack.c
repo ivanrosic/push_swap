@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 09:52:31 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/12 11:11:16 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 07:13:46 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,6 @@ void	ft_first_split(t_stack *s)
 			ft_rr(s);
 		}
 		i++;
+		//ft_affiche_stack(s);
 	}
 }

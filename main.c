@@ -6,12 +6,40 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/12 12:17:59 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/16 09:06:43 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+long long	ft_lld_atoi(const char *str)
+{
+	int i;
+	int np;
+	long long nb;
+
+	nb = 0;
+	i = 0;
+	np = 0;
+	while ((str[i] == '\t') || (str[i] == '\n') || (str[i] == '\v')
+			|| (str[i] == '\f') || (str[i] == '\r') || (str[i] == ' '))
+		i++;
+	if ((str[i] == '+') || (str[i] == '-'))
+	{
+		if (str[i] == '-')
+			np++;
+		i++;
+	}
+	while (!((str[i] < '0') || (str[i] > '9')))
+	{
+		nb = nb * 10;
+		nb = nb + str[i] - '0';
+		i++;
+	}
+	if (np % 2 == 1)
+		return (-nb);
+	return (nb);
+}
 int		ft_atoi(const char *str)
 {
 	int i;
@@ -41,16 +69,48 @@ int		ft_atoi(const char *str)
 	return (nb);
 }
 
-void ft_fill_struct(char **av, t_stack *s)
+int ft_fill_struct(char **av, t_stack *s)
 {
 	int i;
+	long long tmp;
+	int j;
 
-	i = 0;
-	while(i < s->size_a)
+	i = 1;
+	while(i < s->size_a + 1)
 	{
-		s->a[i] = ft_atoi(av[i + 1]);
+		j = 0;
+		while(av[i][j])
+		{
+			while ((av[i][j] == '\t') || (av[i][j] == '\n') || (av[i][j] == '\v')
+					|| (av[i][j] == '\f') || (av[i][j] == '\r') || (av[i][j] == ' '))
+				j++;
+			if((av[i][j] < '0' || av[i][j] > '9'))
+				if(av[i][j] != '-' && av[i][j] != '+')
+					return(1);
+			j++;
+		}
+		tmp = ft_lld_atoi(av[i]);
+		if (tmp > 2147483647 || tmp < -2147483648)
+			return(1);
+		s->a[i - 1] = ft_atoi(av[i]);
+		j = 0;
+		while(j < i - 1)
+		{
+			if(s->a[i - 1] == s->a[j])
+				return(1);
+			j++;
+		}
 		i++;
 	}
+	i = 1;
+	j = s->a[0];
+	while(i < s->size_a)
+	{
+		if(j > s->a[i])
+			return(0);
+		i++;
+	}
+	return(2);
 }
 
 void	ft_affiche_stack(t_stack *s)
@@ -78,13 +138,13 @@ void	ft_affiche_stack(t_stack *s)
 	printf("\n");
 }
 
-void ft_init_struct(int ac, char **av, t_stack *s)
+int ft_init_struct(int ac, char **av, t_stack *s)
 {
 	s->a = malloc(sizeof(int) * (ac - 1));
 	s->b = malloc(sizeof(int) * (ac - 1));
 	s->size_a = ac - 1;
 	s->size_b = 0;
-	ft_fill_struct(av, s);
+	return(ft_fill_struct(av, s));
 }
 
 int ft_verif_a(t_stack *s)
@@ -211,16 +271,16 @@ int		ft_count_nb(char *str)
 	{
 		if(str[i] >= '0' && str[i] <= '9')
 		{
-		while(str[i] >= '0' && str[i] <= '9')
-			i++;
+			while(str[i] >= '0' && str[i] <= '9')
+				i++;
 			cpt++;
 		}
-	i++;
+		i++;
 	}
 	return(cpt);
 }
 
-void	ft_arg_to_av(char **av, t_stack *s)
+int	ft_arg_to_av(char **av, t_stack *s)
 {
 
 	s->size_a = ft_count_nb(av[1]);
@@ -228,25 +288,57 @@ void	ft_arg_to_av(char **av, t_stack *s)
 	s->a = malloc(sizeof(int) * (s->size_a));
 	s->b = malloc(sizeof(int) * (s->size_a));
 
+	return(0);
+}
 
+int ft_checker(int ac, char **av, t_stack *s)
+{
+	(void)ac;
+	if(ft_arg_to_av(av, s) == 1)
+		return(1);
+	return(0);
 }
 
 int main(int ac, char **av)
 {
 	t_stack *s;
 	int v;
+	int r;
 
+	if(ac == 1)
+		return(1);
 	if(!(s = malloc(sizeof(t_stack))))
 		return(0);
 	if(ac == 2)
-	{
-		printf("test\n");
-		ft_arg_to_av(av, s);
-	}
+	{/*
+		printf("checker\n");
+		if(ft_checker(ac, av, s) == 1)
+		{
+		printf("error\n");
+		return(0)
+		}*/
+		r = ft_init_struct(ac, av, s);
+		if(r == 1)
+		{
+			printf("error\n");
+			return(0);
+		}
+		else if (r == 2)
+			return(0);
+
+		}
 	else
-		ft_init_struct(ac, av, s);
-	//		ft_affiche_stack(s);
-/*	if (s->size_a <= 6)
+	{
+		r = ft_init_struct(ac, av, s);
+		if(r == 1)
+		{
+			printf("error\n");
+			return(0);
+		}
+		else if (r == 2)
+			return(0);
+	}
+	if (s->size_a <= 6)
 	{
 		if(s->size_a >= 3)
 		{
@@ -256,5 +348,7 @@ int main(int ac, char **av)
 		ft_sort(s);
 		while(s->size_b > 0)
 			ft_pa(s);
-	}*/
+	}
+	ft_affiche_stack(s);
+	return(0);
 }
