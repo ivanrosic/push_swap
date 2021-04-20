@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:35:16 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/03/30 17:00:04 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 12:06:45 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ void	ft_sa(t_stack *s)
 {
 	if (s->size_a >= 2)
 		ft_swap(&s->a[0], &s->a[1]);
-	printf("sa\n");
+//:wq
+//printf("sa\n");
 }
 
 void	ft_sb(t_stack *s)

@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/16 09:06:43 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 12:06:43 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ void	ft_sort(t_stack *s)
 		b = ft_verif_b(s);
 		a = ft_verif_a(s);
 		if(b == 0)
-			;
+			break;
 		if(ft_verif_a(s) == 0)
 			;
 		else if(ft_verif_a(s) == 1)
@@ -256,8 +256,8 @@ void	ft_sort(t_stack *s)
 		{
 			ft_sb(s);
 		}
-		//ft_affiche_stack(s);
 	}
+	//ft_affiche_stack(s);
 }
 
 int		ft_count_nb(char *str)
@@ -318,6 +318,7 @@ int main(int ac, char **av)
 		return(0)
 		}*/
 		r = ft_init_struct(ac, av, s);
+	ft_affiche_stack(s);
 		if(r == 1)
 		{
 			printf("error\n");
@@ -330,6 +331,7 @@ int main(int ac, char **av)
 	else
 	{
 		r = ft_init_struct(ac, av, s);
+	ft_affiche_stack(s);
 		if(r == 1)
 		{
 			printf("error\n");

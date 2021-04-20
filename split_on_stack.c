@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 09:52:31 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/16 07:13:46 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/04/20 12:06:40 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,16 @@ void	ft_first_split(t_stack *s)
 	{
 		if (s->size_a == 3)
 			break;
-		if(s->a[0] <= s->med)
+		else if(s->a[0] <= s->med)
 			ft_pb(s);
 		else
 		{
-			if(s->b[0] > s->b[1]) 
+			if(s->a[0] > s->a[1]) 
 			ft_ra(s);
 			else
 			ft_rr(s);
 		}
 		i++;
-		//ft_affiche_stack(s);
 	}
+		//ft_affiche_stack(s);
 }
