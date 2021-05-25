@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/20 12:06:43 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/05/05 12:53:12 by ivanrosic    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -299,6 +299,33 @@ int ft_checker(int ac, char **av, t_stack *s)
 	return(0);
 }
 
+int		ft_find_lower(t_stack *s)
+{
+	int i;
+	int low;
+
+	i = 0;
+	low = s->a[0];
+	while(i < s->size_a)
+	{
+		if (s->a[i] < low)
+			low = s->a[i];
+		i++;
+	}
+	return(low);
+}
+
+void	ft_algo(t_stack *s)
+{
+	int low;
+	while(s->size_a > 3)
+	{
+	low = ft_find_lower(s);
+	printf("low:%d\n", low);
+	ft_affiche_stack(s);
+	}
+}
+
 int main(int ac, char **av)
 {
 	t_stack *s;
@@ -309,14 +336,8 @@ int main(int ac, char **av)
 		return(1);
 	if(!(s = malloc(sizeof(t_stack))))
 		return(0);
-	if(ac == 2)
-	{/*
-		printf("checker\n");
-		if(ft_checker(ac, av, s) == 1)
-		{
-		printf("error\n");
-		return(0)
-		}*/
+
+
 		r = ft_init_struct(ac, av, s);
 	ft_affiche_stack(s);
 		if(r == 1)
@@ -327,19 +348,7 @@ int main(int ac, char **av)
 		else if (r == 2)
 			return(0);
 
-		}
-	else
-	{
-		r = ft_init_struct(ac, av, s);
-	ft_affiche_stack(s);
-		if(r == 1)
-		{
-			printf("error\n");
-			return(0);
-		}
-		else if (r == 2)
-			return(0);
-	}
+
 	if (s->size_a <= 6)
 	{
 		if(s->size_a >= 3)
@@ -351,6 +360,8 @@ int main(int ac, char **av)
 		while(s->size_b > 0)
 			ft_pa(s);
 	}
-	ft_affiche_stack(s);
+	else
+		ft_algo(s);
+//	ft_affiche_stack(s);
 	return(0);
 }
