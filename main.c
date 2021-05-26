@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/05/25 20:42:49 by ivanrosic    ###    #+. /#+    ###.fr     */
+/*   Updated: 2021/05/26 20:18:56 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,114 +149,113 @@ int ft_init_struct(int ac, char **av, t_stack *s)
 
 int ft_verif_a(t_stack *s)
 {
-	if(s->size_a == 2)
-	{
-		if(s->a[0] > s->a[1])
-			return(1);
-	}
-	else if (s->size_a == 3)
-	{
-		if(s->a[0] > s->a[2])
-		{
-			if(s->a[0] > s->a[1])
-				return(1);
-			else
-				return(2);
-		}
-		else
-		{
-			if (s->a[2] > s->a[1]  && s->a[1] > s->a[0])
-				return(0);
-			else
-				return(3);
-		}
-	}
-	return(0);
+	if(s->a[0] < s->a[1] && s->a[1] < s->a[2])
+		return(0);
+	if(s->a[0] < s->a[1] && s->a[0] < s->a[2])
+		return(1);
+	if(s->a[0] > s->a[1] && s->a[0] > s->a[2] && s->a[1] > s->a[2])
+		return(4);
+	if(s->a[0] > s->a[1] && s->a[0] > s->a[2])
+		return(5);
+	if(s->a[1] > s->a[2])
+		return(3);
+	return(2);
 }
 
 int ft_verif_b(t_stack *s)
 {
-	if(s->size_b == 2)
-	{
-		if(s->b[0] < s->b[1])
-			return(4);
-	}
-	else if (s->size_b == 3)
-	{
-		if(s->b[0] < s->b[2])
-		{
-			if(s->b[0] > s->b[1])
-				return(1);
-			else
-				return(2);
-		}
-		else
-		{
-			if (s->b[2] < s->b[1]  && s->b[1] < s->b[0])
-				return(0);
-			else
-				return(3);
-		}
-	}
-	return(0);
+	if(s->b[0] > s->b[1] && s->b[1] > s->b[2])
+		return(0);
+	if(s->b[0] > s->b[1] && s->b[0] > s->b[2])
+		return(1);
+	if(s->b[0] < s->b[1] && s->b[0] < s->b[2] && s->b[1] < s->b[2])
+		return(4);
+	if(s->b[0] < s->b[1] && s->b[0] < s->b[2])
+		return(5);
+	if(s->b[1] < s->b[2])
+		return(3);
+	return(2);
+	return(-1);
 }
+void	ft_sort_b(t_stack *s, int b)
+{
+	if(b == 0)
+		;
+	else if(b == 1)
+	{
+		ft_sb(s);
+		ft_rb(s);
+	}
+	else if(b == 2)
+		ft_sb(s);
+	else if(b == 3)
+		ft_rrb(s);
+	else if(b == 4)
+	{
+		ft_sb(s);
+		ft_rrb(s);
+	}
+	else if(b == 5)
+		ft_rb(s);
 
+}
 void	ft_sort(t_stack *s)
 {
 	int b;
 	int a;
 
-	while(ft_verif_a(s) != 0 || ft_verif_b(s) != 0)
+	ft_affiche_stack(s);
+	b = ft_verif_b(s);
+	a = ft_verif_a(s);
+	printf("a=%d\tb=%d\n",a,b);
+	if(a == 0)
+		ft_sort(s, b);
+	else if(a == 1)
 	{
-		b = ft_verif_b(s);
-		a = ft_verif_a(s);
-		if(b == 0)
-			break;
-		if(ft_verif_a(s) == 0)
-			;
-		else if(ft_verif_a(s) == 1)
+		if(b == 1)
+		{
+			ft_s(s);
+			ft_rr(s);
+			b = 0;
+		}
+		else
 		{
 			if(b == 2 || b == 4)
 			{
-				ft_rr(s);
-				b = 0;
-			}
-			else
-				ft_ra(s);
-		}
-		else if(ft_verif_a(s) == 2)
-		{	
-			if(b == 1 || b == 4)
-			{
-				ft_rrr(s);
-				b = 0;
-			}
-			else
-				ft_rra(s);
-		}
-		else if(ft_verif_a(s) == 3)
-		{
-			if(b == 3 || b == 4)
-			{
 				ft_ss(s);
+				if(b == 4)
+					ft_rrb(s);
 				b = 0;
 			}
-			else
+			else if (b == 5)
+			{
 				ft_sa(s);
-		}
-		if(b == 1)
-		{
-			ft_rrb(s);
-		}
-		else if(b == 2)
-		{	
-			ft_rb(s);
-		}
-		else if(b == 3)
-		{
-			ft_sb(s);
+				ft_rr(s);	
+			}
+			else{
+				ft_sa(s);
+			ft_ra(s);
+			}
 		}
 	}
+	else if(a == 2)
+	{
+		if(b == 1 || b == 2 || b == 4)
+		{
+			ft_ss(s);
+		}
+		ft_sa(s);
+	}
+	else if(a == 3)
+		ft_rra(s);
+	else if(a == 4)
+	{
+		ft_ra(s);
+		ft_sa(s);
+	}
+	else if(a == 5)
+		ft_ra(s);
+
 }
 
 int		ft_count_nb(char *str)
@@ -331,7 +330,7 @@ void	ft_last(t_stack *s)
 void	ft_algo(t_stack *s)
 {
 	int low;
-//	ft_affiche_stack(s);
+	//	ft_affiche_stack(s);
 	while(s->size_a > 3)
 	{
 		low = ft_find_lower(s);
@@ -341,12 +340,12 @@ void	ft_algo(t_stack *s)
 			while(low != s->a[0])
 			{
 				ft_ra(s);
-			//	ft_affiche_stack(s);
+				//	ft_affiche_stack(s);
 			}
 		ft_pb(s);
 
-	//	printf("low:%d\n", low);
-	//	ft_affiche_stack(s);
+		//	printf("low:%d\n", low);
+		//	ft_affiche_stack(s);
 	}
 	ft_last(s);
 	while(s->size_b > 0)
@@ -361,7 +360,7 @@ int main(int ac, char **av)
 
 	if(ac == 1)
 		return(1);
-	s = malloc(sizeof(t_stack))
+	s = malloc(sizeof(t_stack));
 	r = ft_init_struct(ac, av, s);
 	//	ft_affiche_stack(s);
 	if(r == 1)
@@ -401,6 +400,6 @@ int main(int ac, char **av)
 	printf("OK\n");
 
 
-	ft_affiche_stack(s);
+	//	ft_affiche_stack(s);
 	return(0);
 }
