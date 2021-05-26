@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/05/05 12:53:12 by ivanrosic    ###    #+. /#+    ###.fr     */
+/*   Updated: 2021/05/25 20:42:49 by ivanrosic    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -257,7 +257,6 @@ void	ft_sort(t_stack *s)
 			ft_sb(s);
 		}
 	}
-	//ft_affiche_stack(s);
 }
 
 int		ft_count_nb(char *str)
@@ -315,15 +314,43 @@ int		ft_find_lower(t_stack *s)
 	return(low);
 }
 
+void	ft_last(t_stack *s)
+{
+	if(s->a[0] < s->a[1] && s->a[0] < s->a[2] && s->a[1] > s->a[2])
+		ft_sa(s);
+	if(s->a[0] > s->a[1] && s->a[0] > s->a[2])
+		ft_ra(s);
+	if(s->a[2] < s->a[1] && s->a[2] < s->a[0])
+		ft_rra(s);
+	if(s->a[0] > s->a[1])
+		ft_sa(s);
+	if(s->a[2] > s->a[1] && s->a[2] > s->a[0] && s->a[1] < s->a[0])
+		ft_sa(s);
+}
+
 void	ft_algo(t_stack *s)
 {
 	int low;
+//	ft_affiche_stack(s);
 	while(s->size_a > 3)
 	{
-	low = ft_find_lower(s);
-	printf("low:%d\n", low);
-	ft_affiche_stack(s);
+		low = ft_find_lower(s);
+		if(s->a[1] == low)
+			ft_sa(s);
+		else
+			while(low != s->a[0])
+			{
+				ft_ra(s);
+			//	ft_affiche_stack(s);
+			}
+		ft_pb(s);
+
+	//	printf("low:%d\n", low);
+	//	ft_affiche_stack(s);
 	}
+	ft_last(s);
+	while(s->size_b > 0)
+		ft_pa(s);
 }
 
 int main(int ac, char **av)
@@ -334,20 +361,16 @@ int main(int ac, char **av)
 
 	if(ac == 1)
 		return(1);
-	if(!(s = malloc(sizeof(t_stack))))
+	s = malloc(sizeof(t_stack))
+	r = ft_init_struct(ac, av, s);
+	//	ft_affiche_stack(s);
+	if(r == 1)
+	{
+		printf("error\n");
 		return(0);
-
-
-		r = ft_init_struct(ac, av, s);
-	ft_affiche_stack(s);
-		if(r == 1)
-		{
-			printf("error\n");
-			return(0);
-		}
-		else if (r == 2)
-			return(0);
-
+	}
+	//	else if (r == 2)
+	//		return(0);
 
 	if (s->size_a <= 6)
 	{
@@ -362,6 +385,22 @@ int main(int ac, char **av)
 	}
 	else
 		ft_algo(s);
-//	ft_affiche_stack(s);
+	ft_affiche_stack(s);
+	int z;
+	int mx;
+
+	z = 0;
+	mx = s->a[0];
+	while(z < s->size_a)
+	{
+		if(s->a[z] < mx)
+			return(0);
+		mx = s->a[z];
+		z++;
+	}
+	printf("OK\n");
+
+
+	ft_affiche_stack(s);
 	return(0);
 }
