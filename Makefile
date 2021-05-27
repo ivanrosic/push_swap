@@ -1,86 +1,82 @@
-SRC_DIR	:= main/
-OBJ_DIR	:= obj/
+NAME = ./push_swap
+NAME_S = ./checker
 
+FLAGS = -Wall -Wextra -Werror
 
-utils = utils
-operations = operations
+DIR_SRC = ./src/
+DIR_INC = ./includes/
+DIR_OBJ = ./obj/
+DIR_SRC_S = ./src/
+DIR_INC_S = ./includes/
+DIR_OBJ_S = ./objs/
 
+INC = ./includes/push_swap.h
 
-OBJ_DIRS = $(addprefix $(OBJ_DIR), $(main) $(utils) $(operations))
+SRC_FILES = main.c				\
+			find_median.c		\
+			operations.c		\
+			split_on_stack.c	\
+			ft_atoi.c			\
+			ft_algo.c			\
+			ft_verif_sort.c		\
+			ft_multi_av.c		\
+			ft_sort.c			\
+			ft_sort_a_five.c	\
+			ft_av.c				\
 
-PRE_SRCS	=	main \
-				mini_algo \
-				$(utils)/utils \
-				$(utils)/comparaisons \
-				parsing \
-				$(operations)/push_and_swap_stacks \
-				$(operations)/rotate_stacks \
-				$(operations)/reverse_rotate_both \
-				$(utils)/printers_and_plages \
-				$(utils)/malloc_and_free \
-				$(utils)/reverse_tab \
-				$(utils)/lst_utils
+SRC_FILES_S = checker.c			\
+			find_median.c		\
+			operations.c		\
+			split_on_stack.c	\
+			ft_atoi.c			\
+			ft_algo.c			\
+			ft_verif_sort.c		\
+			ft_multi_av.c		\
+			ft_sort.c			\
+			ft_sort_a_five.c	\
+			ft_av.c				\
+			get_next_line.c		\
+			get_next_line_utils.c\
 
-CHECK_SRCS = 	checker \
-				mini_algo \
-				$(utils)/utils \
-				$(utils)/comparaisons \
-				parsing \
-				$(operations)/push_and_swap_stacks \
-				$(operations)/rotate_stacks \
-				$(operations)/reverse_rotate_both \
-				$(utils)/printers_and_plages \
-				$(utils)/malloc_and_free \
-				$(utils)/reverse_tab \
-				$(utils)/lst_utils
+SRC = $(addprefix $(DIR_SRC), $(SRC_FILES))
+OBJ = $(addprefix $(DIR_OBJ), $(SRC_FILES:.c=.o))
+SRC_S = $(addprefix $(DIR_SRC_S), $(SRC_FILES_S))
+OBJ_S = $(addprefix $(DIR_OBJ_S), $(SRC_FILES_S:.c=.o))
 
-SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(PRE_SRCS)))
-OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(PRE_SRCS)))
-CHECKER_SRCS = $(addsuffix .c, $(addprefix $(SRC_DIR), $(CHECK_SRCS)))
-CHECKER_OBJS = $(addsuffix .o, $(addprefix $(OBJ_DIR), $(CHECK_SRCS)))
+all: $(NAME) $(NAME_S)
 
-LIBFTA = libft/libft.a
-NAME = push_swap
-NAME_S = checker
-CC = clang
-RM = rm -rf
+$(NAME): $(DIR_OBJ) $(OBJ)
+	@printf "Compilation of \033[1m$@\033[0m  \n"
+	@gcc $(OBJ) -o $(NAME)
+	@echo "PUSH_SWAP CREATED"
 
-# CFLAGS = -Wall -Wextra -Werror -g3 -fsanitize=address
-CFLAGS = -Wall -Wextra -Werror -g3
-INC = -I./includes -L./libft -lft
+$(NAME_S): $(DIR_OBJ_S) $(OBJ_S)
+	@printf "Compilation of \033[1m$@\033[0m\n"
+	@gcc $(OBJ_S) -o $(NAME_S)
+	@echo "CHECKER CREATED"
 
-all:	libft $(NAME) $(NAME_S)
+$(DIR_OBJ):
+	@mkdir -p $(DIR_OBJ)
 
-$(NAME): $(LIBFTA) $(OBJ_DIRS) $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) $(INC) -o $(NAME) 
+$(DIR_OBJ_S):
+	@mkdir -p $(DIR_OBJ_S)
 
-$(NAME_S): $(LIBFTA) $(OBJ_DIRS) $(CHECKER_OBJS)
-	$(CC) $(CFLAGS) $(CHECKER_OBJS) $(INC) -o $(NAME_S) 
+$(DIR_OBJ)%.o:$(DIR_SRC)%.c $(INC)
+	@gcc $(FLAGS)  -I $(DIR_INC) -o $@ -c $<
 
-$(OBJ_DIRS):
-	mkdir -p $(OBJ_DIRS)
-
-$(OBJS) : includes/push_swap.h
-
-$(CHECKER_OBJS) : includes/push_swap.h
-
-$(OBJ_DIR)%.o: $(SRC_DIR)%.c
-	$(CC) $(CFLAGS) -c $< -o $@
-
-$(LIBFTA):
-	@$(MAKE) -C ./libft
-
-libft:
-	@$(MAKE) -C ./libft
+$(DIR_OBJ_S)%.o:$(DIR_SRC_S)%.c $(INC)
+	@gcc $(FLAGS)  -I $(DIR_INC) -o $@ -c $<
 
 clean:
-	$(RM) $(OBJ_DIR) $(NAME) $(CHECKER)
-	@$(MAKE) clean -C libft
+	@rm -Rf $(DIR_OBJ)
+	@rm -Rf $(DIR_OBJ_S)
 
-fclean: 	clean
-			@$(RM) libft/libft.a
-			$(RM) $(NAME) $(NAME_S)
+fclean: clean
+	@rm -f $(NAME)
+	@rm -f $(NAME_S)
+	@echo "\nPUSH_SWAP AND CHECKER DELETED\n"
 
-re:		fclean all
+re: fclean all
 
-.PHONY: all clean fclean re libft
+.PHONY: all clean fclean re
+

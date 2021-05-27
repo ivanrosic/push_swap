@@ -1,38 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_on_stack.c                                   :+:      :+:    :+:   */
+/*   find_median.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/03/30 09:52:31 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/20 12:06:40 by ivarosic         ###   ########lyon.fr   */
+/*   Created: 2021/03/30 08:49:38 by ivarosic          #+#    #+#             */
+/*   Updated: 2021/05/27 05:46:29 by ivanrosic    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_first_split(t_stack *s)
+void	ft_get_median(t_stack *s)
 {
+	int tmp[s->size_a];
 	int i;
-	int size;
 
-	size = s->size_a;
 	i = 0;
-	while (i < size)
+	while(i < s->size_a)
 	{
-		if (s->size_a == 3)
-			break;
-		else if(s->a[0] <= s->med)
-			ft_pb(s);
-		else
-		{
-			if(s->a[0] > s->a[1]) 
-			ft_ra(s);
-			else
-			ft_rr(s);
-		}
+		tmp[i] = s->a[i];
 		i++;
 	}
-		//ft_affiche_stack(s);
+	i = 1;
+	while(i < s->size_a)
+	{
+		if(tmp[i - 1] > tmp[i])
+		{
+			ft_swap(&tmp[i - 1], &tmp[i]);
+			i = 1;
+		}
+		else
+			i++;
+	}
+//	if(i % 2 == 0)
+//	s->med = tmp[i / 2];
+//	else
+	s->med = tmp[(i / 2) - 1];
+//	printf("median = %d\n", s->med);
 }

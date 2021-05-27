@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 10:35:16 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/04/20 12:06:45 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 11:15:19 by ivanrosic    ###    #+. /#+    ###.fr     */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ void	ft_sa(t_stack *s)
 {
 	if (s->size_a >= 2)
 		ft_swap(&s->a[0], &s->a[1]);
-//:wq
-//printf("sa\n");
+printf("sa\n");
 }
 
 void	ft_sb(t_stack *s)
@@ -38,8 +37,10 @@ void	ft_sb(t_stack *s)
 
 void	ft_ss(t_stack *s)
 {
-	ft_sa(s);
-	ft_sb(s);
+	if (s->size_a >= 2)
+		ft_swap(&s->a[0], &s->a[1]);
+	if (s->size_b >= 2)
+		ft_swap(&s->b[0], &s->b[1]);
 	printf("ss\n");
 }
 
@@ -145,8 +146,14 @@ void	ft_rb(t_stack *s)
 
 void	ft_rr(t_stack *s)
 {
-	ft_ra(s);
-	ft_rb(s);
+	int tmp;
+
+	tmp = s->a[0];
+	ft_down_a(s);
+	s->a[s->size_a - 1] = tmp;
+	tmp = s->b[0];
+	ft_down_b(s);
+	s->b[s->size_b - 1] = tmp;
 	printf("rr\n");
 }
 
@@ -157,6 +164,7 @@ void	ft_rra(t_stack *s)
 	tmp = s->a[s->size_a - 1];
 	ft_up_a(s);
 	s->a[0] = tmp;
+	printf("rra\n");
 }
 
 void	ft_rrb(t_stack *s)
@@ -166,10 +174,18 @@ void	ft_rrb(t_stack *s)
 	tmp = s->b[s->size_b - 1];
 	ft_up_b(s);
 	s->b[0] = tmp;
+	printf("rrb\n");
 }
 
 void	ft_rrr(t_stack *s)
 {
-	ft_rra(s);
-	ft_rrb(s);
+	int tmp;
+
+	tmp = s->a[s->size_a - 1];
+	ft_up_a(s);
+	s->a[0] = tmp;
+	tmp = s->b[s->size_b - 1];
+	ft_up_b(s);
+	s->b[0] = tmp;
+	printf("rrr\n");
 }
