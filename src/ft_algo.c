@@ -15,6 +15,23 @@ int		ft_find_lower(t_stack *s)
 	}
 	return(low);
 }
+int		ft_find_upper(t_stack *s)
+{
+	int i;
+	int up;
+
+	i = 0;
+	up = s->b[0];
+	while(i < s->size_b)
+	{
+		if (s->b[i] > up)
+			up = s->b[i];
+		i++;
+	}
+	return(up);
+
+}
+
 int		ft_find_l(t_stack *s, int low)
 {
 	int i;
@@ -24,7 +41,7 @@ int		ft_find_l(t_stack *s, int low)
 	l = s->a[i];
 	if(s->a[i] == low)
 		l = s->a[i+1];
-		i++;
+	i++;
 	while(i < s->size_a)
 	{
 		if (s->a[i] < l && s->a[i] != low)
@@ -65,6 +82,24 @@ int ft_fast(t_stack *s, int low)
 	return(0);
 }
 
+int ft_fast_up(t_stack *s, int up)
+{
+	int i;
+	int cpt;
+
+	i = 0;
+	while(i < s->size_b)
+	{
+		if(up == s->b[i])
+			cpt = i;
+		i++;
+	}
+	i = i / 2;
+	if(i > cpt)
+		return(1);
+	return(0);
+}
+
 void		ft_algo_bis(t_stack *s, int low, int l)
 {
 	(void)l;
@@ -72,7 +107,7 @@ void		ft_algo_bis(t_stack *s, int low, int l)
 	if(s->a[1] == low)
 		ft_sa(s);
 	else
-		while(low != s->a[0])
+		while(low + (s->size_a / 5) < s->a[0])
 		{
 			if(s->a[0] == l && z == 0)
 			{
@@ -89,13 +124,14 @@ void		ft_algo_bis(t_stack *s, int low, int l)
 	{
 		ft_ss(s);
 		z = 0;
-		}
+	}
 }
 
 void	ft_algo(t_stack *s)
 {
 	int low;
 	int l;
+	int up;
 
 	while(s->size_a > 3)
 	{
@@ -104,6 +140,15 @@ void	ft_algo(t_stack *s)
 		ft_algo_bis(s, low, l);
 	}
 	ft_last(s);
+	//ft_affiche_stack(s);
 	while(s->size_b > 0)
-		ft_pa(s);
+	{
+	up = ft_find_upper(s);
+		if(s->b[0] == up)
+			ft_pa(s);
+		else if (ft_fast_up(s, up))
+			ft_rb(s);
+		else
+			ft_rrb(s);
+	}
 }
