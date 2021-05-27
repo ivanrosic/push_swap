@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 09:33:41 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/05/27 17:18:21 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 18:06:16 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ void	ft_lauch(t_stack *s)
 		ft_algo(s);
 }
 
+void ft_free_all(t_stack *s)
+{
+	free(s->a);
+	free(s->b);
+	free(s);
+}
+
 int	main(int ac, char **av)
 {
 	t_stack	*s;
@@ -44,16 +51,15 @@ int	main(int ac, char **av)
 	if (r == 1)
 	{
 		printf("error\n");
-		free(s);
+		ft_free_all(s);
 		return (0);
 	}
 	if (ft_verif_sort(s) == 1)
 	{
-		printf("OK\n");
-		free(s);
+		ft_free_all(s);
 		return (0);
 	}
 	ft_lauch(s);
-	free(s);
+	ft_free_all(s);
 	return (0);
 }

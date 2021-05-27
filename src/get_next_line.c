@@ -6,7 +6,7 @@
 /*   By: ivarosic <ivarosic@student.le-101.>        +:+   +:    +:    +:+     */
 /*                                                 #+#   #+    #+    #+#      */
 /*   Created: 2019/10/31 16:38:39 by ivarosic     #+#   ##    ##    #+#       */
-/*   Updated: 2021/05/27 16:58:54 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 18:22:40 by ivarosic         ###   ########lyon.fr   */
 /*                                                         /                  */
 /*                                                        /                   */
 /* ************************************************************************** */
@@ -101,22 +101,29 @@ int			get_next_line(int fd, char **line)
 	static char	*str[4096];
 	int			test;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL || (read(fd, buf, 0) < 0))
-		return (-1);
-	if (!((str[fd] != NULL) && (((test = ft_searchline(str[fd], '\n'))) == 1)))
-		while (((ret = read(fd, buf, BUFFER_SIZE)) != 0))
+	if (!((str[fd] != NULL))) 
+	{
+		printf("std[fd]=%s\n", str[fd]);
+		test = ft_searchline(str[fd], '\n');
+		if (test == 1)
 		{
-			if (ret < 0)
-				return (-1);
-			if (str[fd] == NULL)
-				if (!(str[fd] = ft_strdup("")))
+			ret = 1;
+			while (ret != 0)
+			{
+				ret = read(fd, buf, BUFFER_SIZE); 
+				if (ret < 0)
 					return (-1);
-			buf[ret] = '\0';
-			if (!(str[fd] = ft_strjoin(str[fd], buf)))
-				return (-1);
-			if ((test = (ft_searchline(buf, '\n'))) == 1)
-				break ;
+				if (str[fd] == NULL)
+					if (!(str[fd] = ft_strdup("")))
+						return (-1);
+				buf[ret] = '\0';
+				if (!(str[fd] = ft_strjoin(str[fd], buf)))
+					return (-1);
+				if ((test = (ft_searchline(buf, '\n'))) == 1)
+					break ;
+			}
 		}
+	}
 	if (((*line = ft_next_line(str[fd], line, 0, &test)) == NULL)
 			|| (test == 0 && ret != BUFFER_SIZE) || test == 3)
 		return (ft_free(str, fd));

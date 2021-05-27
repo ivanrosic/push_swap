@@ -6,7 +6,7 @@
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/27 17:03:39 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/05/27 17:34:41 by ivarosic         ###   ########lyon.fr   */
+/*   Updated: 2021/05/27 18:00:28 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,13 @@ void	ft_do_mv(t_stack *s, char *mv)
 		ft_rrr(s);
 }
 
+void ft_free_all(t_stack *s)
+{
+	free(s->a);
+	free(s->b);
+	free(s);
+}
+
 int	ft_read(t_stack *s)
 {
 	char	*buf;
@@ -104,19 +111,19 @@ int	main(int ac, char **av)
 	if (r == 1)
 	{
 		printf("error\n");
-		free(s);
+		ft_free_all(s);
 		return (0);
 	}
 	if (ft_read(s) == 0)
 	{
 		printf("error\n");
-		free(s);
+		ft_free_all(s);
 		return (0);
 	}
 	if (ft_verif_sort(s) == 1)
 		printf("OK\n");
 	else
 		printf("KO\n");
-	free(s);
+	ft_free_all(s);
 	return(0);
 }
