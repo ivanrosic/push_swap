@@ -14,7 +14,6 @@ INC = ./includes/push_swap.h
 
 SRC_FILES = main.c				\
 			find_median.c		\
-			operations.c		\
 			split_on_stack.c	\
 			ft_atoi.c			\
 			ft_algo.c			\
@@ -22,11 +21,17 @@ SRC_FILES = main.c				\
 			ft_multi_av.c		\
 			ft_sort.c			\
 			ft_sort_a_five.c	\
+			ft_sort_a_five_bis.c\
 			ft_av.c				\
+			ft_ss.c				\
+			ft_pb.c				\
+			ft_pa.c				\
+			ft_rr.c				\
+			ft_rrr.c			\
+			ft_finder.c			\
 
 SRC_FILES_S = checker.c			\
 			find_median.c		\
-			operations.c		\
 			split_on_stack.c	\
 			ft_atoi.c			\
 			ft_algo.c			\
@@ -34,9 +39,16 @@ SRC_FILES_S = checker.c			\
 			ft_multi_av.c		\
 			ft_sort.c			\
 			ft_sort_a_five.c	\
-			ft_av.c				\
+			ft_sort_a_five_bis.c\
 			get_next_line.c		\
 			get_next_line_utils.c\
+			ft_av.c				\
+			ft_ss.c				\
+			ft_pb.c				\
+			ft_pa.c				\
+			ft_rr.c				\
+			ft_rrr.c			\
+			ft_finder.c			\
 
 SRC = $(addprefix $(DIR_SRC), $(SRC_FILES))
 OBJ = $(addprefix $(DIR_OBJ), $(SRC_FILES:.c=.o))

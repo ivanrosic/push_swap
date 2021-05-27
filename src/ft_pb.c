@@ -1,57 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_on_stack.c                                   :+:      :+:    :+:   */
+/*   ft_pb.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/27 15:00:36 by ivarosic          #+#    #+#             */
-/*   Updated: 2021/05/27 15:02:49 by ivarosic         ###   ########lyon.fr   */
+/*   Created: 2021/05/27 15:11:32 by ivarosic          #+#    #+#             */
+/*   Updated: 2021/05/27 16:23:46 by ivarosic         ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_low(t_stack *s)
+void	ft_down_a(t_stack *s)
 {
 	int	i;
-	int	low;
 
-	i = 0;
-	low = ft_find_lower(s);
-	while (i < 4 && s->size_a > 3)
+	i = 1;
+	while (i <= s->size_a)
 	{
-		if (s->a[i] == low)
-			ft_pb(s);
-		ft_ra(s);
+		s->a[i - 1] = s->a[i];
+		i++;
 	}
 }
 
-void	ft_first_split(t_stack *s)
+void	ft_up_b(t_stack *s)
 {
 	int	i;
-	int	size;
 
-	size = s->size_a;
-	i = 0;
-	if (size == 4)
-		ft_low(s);
-	else
+	i = s->size_b;
+	if (s->size_b >= 1)
 	{
-		while (i < size)
+		while (i != 0)
 		{
-			if (s->size_a == 3)
-				break ;
-			else if (s->a[0] <= s->med)
-				ft_pb(s);
-			else
-			{
-				if (s->a[0] > s->a[1])
-					ft_ra(s);
-				else
-					ft_rr(s);
-			}
-			i++;
+			s->b[i] = s->b[i - 1];
+			i--;
 		}
 	}
+}
+
+void	ft_pb(t_stack *s)
+{
+	if (s->size_a >= 1)
+	{
+		ft_up_b(s);
+		s->b[0] = s->a[0];
+		ft_down_a(s);
+		s->size_b++;
+		s->size_a--;
+	}
+	printf("pb\n");
 }

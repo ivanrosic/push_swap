@@ -1,43 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_sort_a_five.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ivarosic <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/05/27 16:11:09 by ivarosic          #+#    #+#             */
+/*   Updated: 2021/05/27 16:16:23 by ivarosic         ###   ########lyon.fr   */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
-int ft_a_one(t_stack *s, int b)
+void	ft_a_two(t_stack *s, int b)
 {
-	if(b == 1)
-	{
-		ft_sb(s);
-		ft_rr(s);
-		b = 0;
-	}
-	else
-	{
-		if(b == 2 || b == 4)
-		{
-			ft_ss(s);
-			if(b == 4)
-				ft_rrb(s);
-			b = 0;
-		}
-		else if (b == 5)
-		{
-			ft_sa(s);
-			ft_rr(s);
-		}
-		else{
-			ft_sa(s);
-			ft_ra(s);
-		}
-	}
-	return(b);
-}
-
-void ft_a_two(t_stack *s, int b)
-{
-	if(b == 1 || b == 2 || b == 4)
+	if (b == 1 || b == 2 || b == 4)
 	{
 		ft_ss(s);
-		if(b == 1)
+		if (b == 1)
 			ft_rb(s);
-		else if(b == 4)
+		else if (b == 4)
 			ft_rrb(s);
 	}
 	else
@@ -47,9 +29,9 @@ void ft_a_two(t_stack *s, int b)
 	}
 }
 
-void ft_a_three(t_stack *s, int b)
+void	ft_a_three(t_stack *s, int b)
 {
-	if(b == 3)
+	if (b == 3)
 		ft_rrr(s);
 	else
 	{
@@ -58,9 +40,9 @@ void ft_a_three(t_stack *s, int b)
 	}
 }
 
-void ft_a_four(t_stack *s, int b)
+void	ft_a_four(t_stack *s, int b)
 {
-	if(b == 5)
+	if (b == 5)
 	{
 		ft_rr(s);
 		ft_sa(s);
@@ -73,9 +55,9 @@ void ft_a_four(t_stack *s, int b)
 	}
 }
 
-void ft_a_five(t_stack *s, int b)
+void	ft_a_five(t_stack *s, int b)
 {
-	if(b == 5)
+	if (b == 5)
 		ft_rr(s);
 	else
 	{
